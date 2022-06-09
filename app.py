@@ -15,20 +15,20 @@ handler = WebhookHandler('ada8bcabd1841a8dfbe822d8d0035bc5')
 
 
 # 接收 LINE 的資訊
-@app.route("/callback", methods=['POST'])
-def callback():
-    signature = request.headers['X-Line-Signature']
+# @app.route("/callback", methods=['POST'])
+# def callback():
+#     signature = request.headers['X-Line-Signature']
 
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+#     body = request.get_data(as_text=True)
+#     app.logger.info("Request body: " + body)
     
-    try:
-        handler.handle(body, signature)
+#     try:
+#         events = parser.parse(body, signature)
         
-    except InvalidSignatureError:
-        abort(400)
+#     except InvalidSignatureError:
+#         abort(400)
 
-    return 'OK'
+#     return 'OK'
 
 def callback(request):
  
@@ -37,7 +37,8 @@ def callback(request):
         body = request.body.decode('utf-8')
  
         try:
-            events = parser.parse(body, signature)  # 傳入的事件
+            events = parser.parse(body, signature)
+              # 傳入的事件
         except InvalidSignatureError:
             return HttpResponseForbidden()
         except LineBotApiError:
