@@ -1,34 +1,25 @@
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
-#import configparser
 from flask import Flask, request, abort
-from linebot import (LineBotApi, WebhookHandler)
-from linebot.exceptions import (InvalidSignatureError, LineBotApiError)
+
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
 from linebot.models import *
-import parser,re
+import re
 
 app = Flask(__name__)
 
-# LINE 聊天機器人的基本資料
-#config = configparser.ConfigParser()
+app = Flask(__name__)
+
+# 必須放上自己的Channel Access Token
 line_bot_api = LineBotApi('uxVsnPZdc7sMpdkSpB2fUfM2BIMvHAt2qieS58JFnkN7Tcm6vAtB7OQlIw6pWm/KeMPiKipm/FW1xy+c+W/99Y5xwsm4fueZgMrapUP3Q4qXckGlvK2ABdKkQD+MILxLg9bA/53J0kQBVNj/vV+7KgdB04t89/1O/w1cDnyilFU=')
+# 必須放上自己的Channel Secret
 handler = WebhookHandler('93df464b067cee15e60a3f1759471f90')
-line_bot_api.push_message('Ub7e9f322724c6b15cab6fc57630e5d8c', TextSendMessage(text='請回傳 「開始」 進行服務'))
 
-# 接收 LINE 的資訊
-# @app.route("/callback", methods=['POST'])
-# def callback():
-#     signature = request.headers['X-Line-Signature']
+line_bot_api.push_message('Ub7e9f322724c6b15cab6fc57630e5d8c', TextSendMessage(text='請回傳「開始」進行服務~'))
 
-#     body = request.get_data(as_text=True)
-#     app.logger.info("Request body: " + body)
-    
-#     try:
-#         events = parser.parse(body, signature)
-        
-#     except InvalidSignatureError:
-#         abort(400)
-
-#     return 'OK'
 @app.route("/callback", methods=['POST'])
 def callback():
  
@@ -44,10 +35,11 @@ def callback():
                 abort(400)
 
         return 'OK'
-
+#訊息傳遞區塊
+##### 基本上程式編輯都在這個function #####
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = text =event.message.text
+    message = TextSendMessage(text=event.message.text)
     if re.match('開始',message):
         line_bot_api.reply_message(  # 回復傳入的訊息文字
             event.reply_token,TemplateSendMessage(
@@ -82,7 +74,7 @@ def handle_message(event):
             TextSendMessage(reserve_text))
             return 0
         if re.match('取消預約',message):
-            reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? (若是 請打上: 確定取消)'
+            reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? (若是 請打上: 確定取消 )'
             line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(reserve_text))
@@ -92,7 +84,7 @@ def handle_message(event):
         if re.match('確定取消',message):
             #cancel()
             return 0
-line_bot_api.push_message('210clairehuang', TextSendMessage(text='功能確認'))              
+line_bot_api.push_message('Ub7e9f322724c6b15cab6fc57630e5d8c', TextSendMessage(text='功能確認'))              
 
 
 #主程式
@@ -100,3 +92,4 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+
