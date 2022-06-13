@@ -36,18 +36,18 @@ def callback():
         return 'OK'
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
-@handler.add(MessageEvent, message=TextMessage)
 def Enquiry(token):
     if len(token) == 0:
             return 0
     else:
             return 1
-     #學生id匯入
+#學生id匯入
 stuid = []
 if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
     stu_id = '410831143'
     stuid.append(stu_id)
 
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text =event.message.text
     token = []
