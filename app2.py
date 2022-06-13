@@ -1,3 +1,4 @@
+from lib2to3.pgen2 import token
 from flask import Flask, request, abort
 
 from linebot import (
@@ -39,7 +40,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text =event.message.text
-    token = []
+    list1 = []
     if re.match('開始',message):    
         buttons_template_message = TemplateSendMessage(
         alt_text='選擇服務',
@@ -109,13 +110,13 @@ def handle_message(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_peace)
     if re.match('和平研究小間',message):
-        token.append(23)
+        list1.append(23)
         return token
     if re.match('和平小團體室 4F',message):
-        token.append(26)
+        list1.append(26)
         return token
     if re.match('和平小團體室 5F',message):
-        token.append(27)
+        list1.append(27)
         return token
 
     #燕巢
@@ -186,22 +187,22 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message3)
 
     if re.match('燕巢研究小間',message):
-        token.append(19)
+        list1.append(19)
         return token
     if re.match('燕巢團體討論室 2A',message):
-        token.append(5)
+        list1.append(5)
         return token
     if re.match('燕巢團體討論室 2B',message):
-        token.append(6)
+        list1.append(6)
         return token
     if re.match('燕巢欣賞室 2A',message):
-        token.append(7)
+        list1.append(7)
         return token
     if re.match('燕巢欣賞室 2B',message):
-        token.append(8)
+        list1.append(8)
         return token
     if re.match('燕巢討論室',message):
-        token.append(32)
+        list1.append(32)
         return token
     if Enquiry(token):
         line_bot_api.reply_message(event.reply_token,TextSendMessage('請選擇預約時間'))
@@ -350,9 +351,9 @@ def handle_message(event):
     if re.match('確定取消',message):
         #cancel()
         return 0
-    
-def Enquiry(token):
-    if len(token) == 0:
+        
+def Enquiry(list1):
+    if len(list1) == 0:
         return 0
     else:
         return 1
