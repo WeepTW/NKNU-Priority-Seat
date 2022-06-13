@@ -28,7 +28,8 @@ def callback():
         try:
             print(body,signature)
             handler.handle(body, signature)
-              # 傳入的事件
+            #user = line_bot_api.get_profile('<user_id>')
+        
         except InvalidSignatureError:
                 abort(400)
 
@@ -38,12 +39,24 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text =event.message.text
+    stuid = []
+    def Enquiry(token):
+        if len(token) == 0:
+            return 0
+        else:
+            return 1
+    token = []
+    #學生id匯入
+    if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
+        stu_id = '410831143'
+        stuid.append(stu_id)
+        return stuid
     if re.match('開始',message):    
         buttons_template_message = TemplateSendMessage(
         alt_text='選擇服務',
         template=ButtonsTemplate(
         title='請選擇服務項目',
-        text='選單功能－TemplateSendMessage',
+        text='選單功能-TemplateSendMessage',
              actions=[
                  MessageAction(
                      label='我要預約！',
@@ -62,14 +75,288 @@ def handle_message(event):
      )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
     if re.match('我要預約！',message):
-        reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:和平-\n1.研究小間 三天前\n2.小型團體(4F、5F)(3人) 七天前\n燕巢-\n1.研究小間 三天前\n2.團體討論室、欣賞室、討論室 七天前\n請用換行方式依序填入下列資料讓我們替您預約空間喔~\n您的學生id:\n您要預約的校區(和平/燕巢):\n您要預約的空間():\n您要預約的時間(今天/明天/後天/大後天 + 時間):'
+        reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.研究小間 三天前\n2.小型團體(4F、5F)(3人) 七天前\n燕巢校區-\n1.研究小間-代號 spaceC 三天前\n2.團體討論室(2A、2B)、欣賞室(2A、2B) 七天前\n 3.討論室(1A、1B、1C、1D、1E)\n請點選下列表單讓我們替您預約空間喔~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        return 0
+        buttons_template_message_campus = TemplateSendMessage(
+        alt_text='校區',
+        template=ButtonsTemplate(
+        title='請選擇校區',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                     label='和平',
+                     text='和平校區！'  
+                 ),
+                 MessageAction(
+                     label='燕巢',
+                     text='燕巢校區' 
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_campus)
+        #和平
+    if re.match('和平校區',message):
+        buttons_template_message_peace = TemplateSendMessage(
+        alt_text='預約空間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的空間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='和平研究小間',
+                         text='和平研究小間',
+                 ),
+                 MessageAction(
+                         label='和平小團體室4',
+                         text='和平小團體室 4F',
+                 ),
+                 MessageAction(
+                         label='和平小團體室5',
+                         text='和平小團體室 5F',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_peace)
+    if re.match('和平研究小間',message):
+        token.append(23)
+        return token
+    if re.match('和平小團體室 4F',message):
+        token.append(26)
+        return token
+    if re.match('和平小團體室 5F',message):
+        token.append(27)
+        return token
+
+    #燕巢
+    if re.match('燕巢校區',message):
+        buttons_template_message_swallow = TemplateSendMessage(
+        alt_text='預約空間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的空間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='燕巢研究小間',
+                         text='燕巢研究小間',
+                 ),
+                 MessageAction(
+                         label='燕巢團體討論室',
+                         text='燕巢團體討論室',
+                 ),
+                 MessageAction(
+                         label='燕巢欣賞室',
+                         text='燕巢欣賞室',
+                 ),
+                MessageAction(
+                         label='燕巢討論室',
+                         text='燕巢討論室',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_swallow)
+    if re.match('燕巢團體討論室',message):
+        buttons_template_message2 = TemplateSendMessage(
+        alt_text='預約空間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的空間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='燕巢團體討論室 2A',
+                         text='燕巢團體討論室 2A',
+                 ),
+                 MessageAction(
+                         label='燕巢團體討論室 2B',
+                         text='燕巢團體討論室 2B',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message2)
+    if re.match('燕巢欣賞室',message):
+        buttons_template_message3 = TemplateSendMessage(
+        alt_text='預約空間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的空間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='燕巢欣賞室 2A',
+                         text='燕巢欣賞室 2A',
+                 ),
+                 MessageAction(
+                         label='燕巢欣賞室 2B',
+                         text='燕巢欣賞室 2B',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message3)
+
+    if re.match('燕巢研究小間',message):
+        token.append(19)
+        return token
+    if re.match('燕巢團體討論室 2A',message):
+        token.append(5)
+        return token
+    if re.match('燕巢團體討論室 2B',message):
+        token.append(6)
+        return token
+    if re.match('燕巢欣賞室 2A',message):
+        token.append(7)
+        return token
+    if re.match('燕巢欣賞室 2B',message):
+        token.append(8)
+        return token
+    if re.match('燕巢討論室',message):
+        token.append(32)
+        return token
+    if Enquiry(token):
+        line_bot_api.reply_message(event.reply_token,TextSendMessage('請選擇預約時間'))
+        buttons_template_message_date = TemplateSendMessage(
+        alt_text='預約日期',
+        template=ButtonsTemplate(
+        title='請選擇要預約的日子',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='今天',
+                         text='今天',
+                 ),
+                 MessageAction(
+                         label='明天',
+                         text='明天',
+                 ),
+                 MessageAction(
+                         label='後天',
+                         text='後天',
+                 ),
+                 MessageAction(
+                         label='大後天',
+                         text='大後天',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_date)
+    if re.match('今天',message):
+        buttons_template_message_time = TemplateSendMessage(
+        alt_text='預約時間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的時間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='上午',
+                         text='今天上午',
+                 ),
+                 MessageAction(
+                         label='下午',
+                         text='今天下午',
+                 ),
+                 MessageAction(
+                         label='晚上',
+                         text='今天晚上',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_time)
+    if re.match('明天',message):
+        buttons_template_message_time_tom = TemplateSendMessage(
+        alt_text='預約時間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的時間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='上午',
+                         text='明天上午',
+                 ),
+                 MessageAction(
+                         label='下午',
+                         text='明天下午',
+                 ),
+                 MessageAction(
+                         label='晚上',
+                         text='明天晚上',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_time_tom)
+    if re.match('後天',message):
+        buttons_template_message_time_at = TemplateSendMessage(
+        alt_text='預約時間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的時間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='上午',
+                         text='後天上午',
+                 ),
+                 MessageAction(
+                         label='下午',
+                         text='後天下午',
+                 ),
+                 MessageAction(
+                         label='晚上',
+                         text='後天晚上',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_time_at)
+    if re.match('大後天',message):
+        buttons_template_message_time_aat = TemplateSendMessage(
+        alt_text='預約時間',
+        template=ButtonsTemplate(
+        title='請選擇要預約的時間',
+        text='選單功能-TemplateSendMessage',
+             actions=[
+                 MessageAction(
+                         label='上午',
+                         text='大後天上午',
+                 ),
+                 MessageAction(
+                         label='下午',
+                         text='大後天下午',
+                 ),
+                 MessageAction(
+                         label='晚上',
+                         text='大後天晚上',
+                 )
+             ]
+         )
+        )
+        line_bot_api.reply_message(event.reply_token, buttons_template_message_time_aat)
+
     if re.match('取消預約',message):
-        reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? (若是 請打上: 確定取消)'
+        reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? '
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        return 0
-    if re.match('我自己來',message):
+        confirm_template_message = TemplateSendMessage(
+             alt_text='確定取消',
+             template=ConfirmTemplate(
+                 text='您確定要取消嗎？',
+                 actions=[
+                     PostbackAction(
+                         label='取消',
+                         display_text='確定取消',
+                         data='action=確定取消'
+                     ),
+                     PostbackAction(
+                         label='繼續',
+                         display_text='不要取消',
+                         data='action=不要取消'
+                     ),
+                 ]
+             )
+         )
+        line_bot_api.reply_message(event.reply_token, confirm_template_message)
         return 0
     if re.match('確定取消',message):
         #cancel()
