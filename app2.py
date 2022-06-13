@@ -9,7 +9,6 @@ from linebot.exceptions import (
 from linebot.models import *
 import re
 
-app = Flask(__name__)
 
 app = Flask(__name__)
 
