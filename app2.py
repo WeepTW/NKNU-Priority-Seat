@@ -37,7 +37,6 @@ def callback():
         return 'OK'
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
-list1 = []
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text =event.message.text
@@ -179,6 +178,7 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message2)
+
 @handler.add(MessageEvent, message=TextMessage)        
 def handle_message_reserve_campus(event):   
     message = text =event.message.text
