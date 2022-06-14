@@ -67,86 +67,86 @@ def handle_message(event):
         reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.研究小間 三天前\n2.小型團體(4F、5F)(3人) 七天前\n燕巢校區-\n1.研究小間-代號 spaceC 三天前\n2.團體討論室(2A、2B)、欣賞室(2A、2B) 七天前\n 3.討論室(1A、1B、1C、1D、1E)\n請點選下列表單讓我們替您預約空間喔~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text        
-    if re.match('我要預約！',message):   
-        buttons_template_message_campus = TemplateSendMessage(
-        alt_text='校區',
-        template=ButtonsTemplate(
-        title='請選擇校區',
-        text='選單功能-TemplateSendMessage',
-             actions=[
-                 MessageAction(
-                     label='和平',
-                     text='和平校區！'  
-                 ),
-                 MessageAction(
-                     label='燕巢',
-                     text='燕巢校區' 
-                 )
-             ]
-         )
-        )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message_campus)
+#@handler.add(MessageEvent, message=TextMessage)        
+#def handle_message_reserve_campus(event):   
+#    message = text =event.message.text        
+#    if re.match('我要預約！',message):   
+#        buttons_template_message_campus = TemplateSendMessage(
+#        alt_text='校區',
+#        template=ButtonsTemplate(
+#        title='請選擇校區',
+#        text='選單功能-TemplateSendMessage',
+#             actions=[
+#                 MessageAction(
+#                     label='和平',
+#                     text='和平校區！'  
+#                 ),
+#                 MessageAction(
+#                     label='燕巢',
+#                     text='燕巢校區' 
+#                 )
+#             ]
+#         )
+#        )
+#        line_bot_api.reply_message(event.reply_token, buttons_template_message_campus)
 #和平
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
-    if re.match('和平校區',message):
-        buttons_template_message_peace = TemplateSendMessage(
-        alt_text='預約空間',
-        template=ButtonsTemplate(
-        title='請選擇要預約的空間',
-        text='選單功能-TemplateSendMessage',
-             actions=[
-                 MessageAction(
-                         label='和平研究小間',
-                         text='和平研究小間',
-                 ),
-                 MessageAction(
-                         label='和平小團體室4',
-                         text='和平小團體室 4F',
-                 ),
-                 MessageAction(
-                         label='和平小團體室5',
-                         text='和平小團體室 5F',
-                 )
-             ]
-         )
-        )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message_peace)
+#@handler.add(MessageEvent, message=TextMessage)        
+#def handle_message_reserve_campus(event):   
+#    message = text =event.message.text
+#    if re.match('和平校區',message):
+#        buttons_template_message_peace = TemplateSendMessage(
+#        alt_text='預約空間',
+#        template=ButtonsTemplate(
+#        title='請選擇要預約的空間',
+#        text='選單功能-TemplateSendMessage',
+#             actions=[
+#                 MessageAction(
+#                         label='和平研究小間',
+#                         text='和平研究小間',
+#                 ),
+#                 MessageAction(
+#                         label='和平小團體室4',
+#                         text='和平小團體室 4F',
+#                 ),
+#                 MessageAction(
+#                         label='和平小團體室5',
+#                         text='和平小團體室 5F',
+#                 )
+#             ]
+#         )
+#        )
+#        line_bot_api.reply_message(event.reply_token, buttons_template_message_peace)
 #燕巢
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
-    if re.match('燕巢校區',message):
-        buttons_template_message_swallow = TemplateSendMessage(
-        alt_text='預約空間',
-        template=ButtonsTemplate(
-        title='請選擇要預約的空間',
-        text='選單功能-TemplateSendMessage',
-             actions=[
-                 MessageAction(
-                         label='燕巢研究小間',
-                         text='燕巢研究小間',
-                 ),
-                 MessageAction(
-                         label='燕巢團體討論室',
-                         text='燕巢團體討論室',
-                 ),
-                 MessageAction(
-                         label='燕巢欣賞室',
-                         text='燕巢欣賞室',
-                 ),
-                MessageAction(
-                         label='燕巢討論室',
-                         text='燕巢討論室',
-                 )
-             ]
-         )
-        )
-        line_bot_api.reply_message(event.reply_token, buttons_template_message_swallow)
+#@handler.add(MessageEvent, message=TextMessage)        
+#def handle_message_reserve_campus(event):   
+#    message = text =event.message.text
+#    if re.match('燕巢校區',message):
+#        buttons_template_message_swallow = TemplateSendMessage(
+#        alt_text='預約空間',
+#        template=ButtonsTemplate(
+#        title='請選擇要預約的空間',
+#        text='選單功能-TemplateSendMessage',
+#             actions=[
+#                 MessageAction(
+#                        label='燕巢研究小間',
+#                         text='燕巢研究小間',
+#                 ),
+#                 MessageAction(
+#                         label='燕巢團體討論室',
+#                         text='燕巢團體討論室',
+#                 ),
+#                 MessageAction(
+#                         label='燕巢欣賞室',
+#                         text='燕巢欣賞室',
+#                 ),
+#                MessageAction(
+#                         label='燕巢討論室',
+#                         text='燕巢討論室',
+#                 )
+#             ]
+#         )
+#        )
+#        line_bot_api.reply_message(event.reply_token, buttons_template_message_swallow)
 
 #主程式
 import os
