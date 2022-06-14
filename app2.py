@@ -63,6 +63,7 @@ def handle_message(event):
          )
      )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        return 0
     if re.match('我要預約！',message):
         reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.研究小間 三天前\n2.小型團體(4F、5F)(3人) 七天前\n燕巢校區-\n1.研究小間-代號 spaceC 三天前\n2.團體討論室(2A、2B)、欣賞室(2A、2B) 七天前\n 3.討論室(1A、1B、1C、1D、1E)\n請點選下列表單讓我們替您預約空間喔~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
@@ -87,6 +88,7 @@ def handle_message_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_campus)
+        return 0
 #和平
 #@handler.add(MessageEvent, message=TextMessage)        
 #def handle_message_reserve_campus(event):   
