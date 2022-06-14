@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="AsciiDoc 9.0.0rc2">
-<title>AMBIGUOUS_WORDS(1)</title>
+<title>COMBINE_LANG_MODEL(1)</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
 
@@ -733,12 +733,12 @@ asciidoc.install();
 <body class="manpage">
 <div id="header">
 <h1>
-AMBIGUOUS_WORDS(1) Manual Page
+COMBINE_LANG_MODEL(1) Manual Page
 </h1>
 <h2>NAME</h2>
 <div class="sectionbody">
-<p>ambiguous_words -
-   generate sets of words Tesseract is likely to find ambiguous
+<p>combine_lang_model -
+   generate starter traineddata
 </p>
 </div>
 </div>
@@ -746,16 +746,114 @@ AMBIGUOUS_WORDS(1) Manual Page
 <div class="sect1">
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><strong>ambiguous_words</strong> [-l lang] <em>TESSDATADIR</em> <em>WORDLIST</em> <em>AMBIGUOUSFILE</em></p></div>
+<div class="paragraph"><p><strong>combine_lang_model</strong>  --input_unicharset <em>filename</em> --script_dir <em>dirname</em> --output_dir <em>rootdir</em> --lang <em>lang</em> [--lang_is_rtl] [pass_through_recoder] [--words file --puncs file --numbers file]</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>ambiguous_words(1) runs Tesseract in a special mode, and for each word
-in word list, produces a set of words which Tesseract thinks might be
-ambiguous with it.   <em>TESSDATADIR</em> must be set to the absolute path of
-a directory containing <em>tessdata/lang.traineddata</em>.</p></div>
+<div class="paragraph"><p>combine_lang_model(1) generates a starter traineddata file that can be used to train an LSTM-based neural network model. It takes as input a unicharset and an optional set of wordlists. It eliminates the need to run set_unicharset_properties(1), wordlist2dawg(1), some non-existent binary to generate the recoder (unicode compressor), and finally combine_tessdata(1).</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+<em>--lang lang</em>
+</dt>
+<dd>
+<p>
+        The language to use.
+        Tesseract uses 3-character ISO 639-2 language codes. (See LANGUAGES)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--script_dir  PATH</em>
+</dt>
+<dd>
+<p>
+  Directory name for input script unicharsets. It should point to the location of langdata (github repo) directory.  (type:string default:)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--input_unicharset  FILE</em>
+</dt>
+<dd>
+<p>
+  Unicharset to complete and use in encoding. It can be a hand-created file with incomplete fields. Its basic and script properties will be set before it is used.  (type:string default:)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--lang_is_rtl  BOOL</em>
+</dt>
+<dd>
+<p>
+  True if language being processed is written right-to-left (eg Arabic/Hebrew). (type:bool default:false)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--pass_through_recoder BOOL</em>
+</dt>
+<dd>
+<p>
+  If true, the recoder is a simple pass-through of the unicharset. Otherwise, potentially a compression of it by encoding Hangul in Jamos, decomposing multi-unicode symbols into sequences of unicodes, and encoding Han using the data in the radical_table_data, which must be the content of the file: langdata/radical-stroke.txt. (type:bool default:false)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--version_str  STRING</em>
+</dt>
+<dd>
+<p>
+  An arbitrary version label to add to traineddata file  (type:string default:)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--words  FILE</em>
+</dt>
+<dd>
+<p>
+  (Optional) File listing words to use for the system dictionary  (type:string default:)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--numbers  FILE</em>
+</dt>
+<dd>
+<p>
+  (Optional) File listing number patterns  (type:string default:)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--puncs  FILE</em>
+</dt>
+<dd>
+<p>
+  (Optional) File listing punctuation patterns. The words/puncs/numbers lists may be all empty. If any are non-empty then puncs must be non-empty.  (type:string default:)
+</p>
+</dd>
+<dt class="hdlist1">
+<em>--output_dir   PATH</em>
+</dt>
+<dd>
+<p>
+  Root directory for output files. Output files will be written to &lt;output_dir&gt;/&lt;lang&gt;/&lt;lang&gt;.*  (type:string default:)
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_history">HISTORY</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>combine_lang_model(1) was first made available for tesseract4.00.00alpha.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_resources">RESOURCES</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Main web site: <a href="https://github.com/tesseract-ocr">https://github.com/tesseract-ocr</a><br>
+Information on training tesseract LSTM: <a href="https://tesseract-ocr.github.io/tessdoc/TrainingTesseract-4.00.html">https://tesseract-ocr.github.io/tessdoc/TrainingTesseract-4.00.html</a></p></div>
 </div>
 </div>
 <div class="sect1">
@@ -783,7 +881,7 @@ at Hewlett Packard (1985-1995) and Google (2006-present).</p></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2019-01-16 21:53:46 CET
+ 2020-11-30 21:24:34 CET
 </div>
 </div>
 </body>

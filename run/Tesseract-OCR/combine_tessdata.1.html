@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="AsciiDoc 9.0.0rc2">
-<title>AMBIGUOUS_WORDS(1)</title>
+<title>COMBINE_TESSDATA(1)</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
 
@@ -730,44 +730,324 @@ asciidoc.install();
 /*]]>*/
 </script>
 </head>
-<body class="manpage">
+<body class="article">
 <div id="header">
-<h1>
-AMBIGUOUS_WORDS(1) Manual Page
-</h1>
-<h2>NAME</h2>
-<div class="sectionbody">
-<p>ambiguous_words -
-   generate sets of words Tesseract is likely to find ambiguous
-</p>
-</div>
+<h1>COMBINE_TESSDATA(1)</h1>
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="_name">NAME</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>combine_tessdata - combine/extract/overwrite/list/compact Tesseract data</p></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><strong>ambiguous_words</strong> [-l lang] <em>TESSDATADIR</em> <em>WORDLIST</em> <em>AMBIGUOUSFILE</em></p></div>
+<div class="paragraph"><p><strong>combine_tessdata</strong> [<em>OPTION</em>] <em>FILE</em>&#8230;</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>ambiguous_words(1) runs Tesseract in a special mode, and for each word
-in word list, produces a set of words which Tesseract thinks might be
-ambiguous with it.   <em>TESSDATADIR</em> must be set to the absolute path of
-a directory containing <em>tessdata/lang.traineddata</em>.</p></div>
+<div class="paragraph"><p>combine_tessdata(1) is the main program to combine/extract/overwrite/list/compact
+tessdata components in [lang].traineddata files.</p></div>
+<div class="paragraph"><p>To combine all the individual tessdata components (unicharset, DAWGs,
+classifier templates, ambiguities, language configs) located at, say,
+/home/$USER/temp/eng.* run:</p></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>combine_tessdata /home/$USER/temp/eng.</pre>
+</div></div>
+<div class="paragraph"><p>The result will be a combined tessdata file /home/$USER/temp/eng.traineddata</p></div>
+<div class="paragraph"><p>Specify option -e if you would like to extract individual components
+from a combined traineddata file. For example, to extract language config
+file and the unicharset from tessdata/eng.traineddata run:</p></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>combine_tessdata -e tessdata/eng.traineddata \
+  /home/$USER/temp/eng.config /home/$USER/temp/eng.unicharset</pre>
+</div></div>
+<div class="paragraph"><p>The desired config file and unicharset will be written to
+/home/$USER/temp/eng.config /home/$USER/temp/eng.unicharset</p></div>
+<div class="paragraph"><p>Specify option -o to overwrite individual components of the given
+[lang].traineddata file. For example, to overwrite language config
+and unichar ambiguities files in tessdata/eng.traineddata use:</p></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>combine_tessdata -o tessdata/eng.traineddata \
+  /home/$USER/temp/eng.config /home/$USER/temp/eng.unicharambigs</pre>
+</div></div>
+<div class="paragraph"><p>As a result, tessdata/eng.traineddata will contain the new language config
+and unichar ambigs, plus all the original DAWGs, classifier templates, etc.</p></div>
+<div class="paragraph"><p>Note: the file names of the files to extract to and to overwrite from should
+have the appropriate file suffixes (extensions) indicating their tessdata
+component type (.unicharset for the unicharset, .unicharambigs for unichar
+ambigs, etc). See k*FileSuffix variable in ccutil/tessdatamanager.h.</p></div>
+<div class="paragraph"><p>Specify option -u to unpack all the components to the specified path:</p></div>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>combine_tessdata -u tessdata/eng.traineddata /home/$USER/temp/eng.</pre>
+</div></div>
+<div class="paragraph"><p>This will create  /home/$USER/temp/eng.* files with individual tessdata
+components from tessdata/eng.traineddata.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><strong>-c</strong> <em>.traineddata</em> <em>FILE</em>&#8230;:
+    Compacts the LSTM component in the .traineddata file to int.</p></div>
+<div class="paragraph"><p><strong>-d</strong> <em>.traineddata</em> <em>FILE</em>&#8230;:
+    Lists directory of components from the .traineddata file.</p></div>
+<div class="paragraph"><p><strong>-e</strong> <em>.traineddata</em> <em>FILE</em>&#8230;:
+    Extracts the specified components from the .traineddata file</p></div>
+<div class="paragraph"><p><strong>-l</strong> <em>.traineddata</em> <em>FILE</em>&#8230;:
+   List the network information.</p></div>
+<div class="paragraph"><p><strong>-o</strong> <em>.traineddata</em> <em>FILE</em>&#8230;:
+    Overwrites the specified components of the .traineddata file
+    with those provided on the command line.</p></div>
+<div class="paragraph"><p><strong>-u</strong> <em>.traineddata</em> <em>PATHPREFIX</em>
+    Unpacks the .traineddata using the provided prefix.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_caveats">CAVEATS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><em>Prefix</em> refers to the full file prefix, including period (.)</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_components">COMPONENTS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>The components in a Tesseract lang.traineddata file as of
+Tesseract 4.0 are briefly described below; For more information on
+many of these files, see
+<a href="https://tesseract-ocr.github.io/tessdoc/Training-Tesseract.html">https://tesseract-ocr.github.io/tessdoc/Training-Tesseract.html</a>
+and
+<a href="https://tesseract-ocr.github.io/tessdoc/TrainingTesseract-4.00.html">https://tesseract-ocr.github.io/tessdoc/TrainingTesseract-4.00.html</a></p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+lang.config
+</dt>
+<dd>
+<p>
+  (Optional) Language-specific overrides to default config variables.
+  For 4.0 traineddata files, lang.config provides control parameters which
+  can affect layout analysis, and sub-languages.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.unicharset
+</dt>
+<dd>
+<p>
+  (Required - 3.0x  legacy tesseract) The list of symbols that Tesseract recognizes, with properties.
+  See unicharset(5).
+</p>
+</dd>
+<dt class="hdlist1">
+lang.unicharambigs
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) This file contains information on pairs of recognized symbols
+  which are often confused.  For example, <em>rn</em> and <em>m</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.inttemp
+</dt>
+<dd>
+<p>
+  (Required - 3.0x  legacy tesseract) Character shape templates for each unichar.  Produced by
+  mftraining(1).
+</p>
+</dd>
+<dt class="hdlist1">
+lang.pffmtable
+</dt>
+<dd>
+<p>
+  (Required - 3.0x  legacy tesseract) The number of features expected for each unichar.
+  Produced by mftraining(1) from <strong>.tr</strong> files.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.normproto
+</dt>
+<dd>
+<p>
+  (Required - 3.0x  legacy tesseract) Character normalization prototypes generated by cntraining(1)
+  from <strong>.tr</strong> files.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.punc-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) A dawg made from punctuation patterns found around words.
+  The "word" part is replaced by a single space.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.word-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) A dawg made from dictionary words from the language.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.number-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) A dawg made from tokens which originally contained digits.
+  Each digit is replaced by a space character.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.freq-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) A dawg made from the most frequent words which would have
+  gone into word-dawg.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.fixed-length-dawgs
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) Several dawgs of different fixed lengths&#8201;&#8212;&#8201;useful for
+  languages like Chinese.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.shapetable
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) When present, a shapetable is an extra layer between the character
+  classifier and the word recognizer that allows the character classifier to
+  return a collection of unichar ids and fonts instead of a single unichar-id
+  and font.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.bigram-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) A dawg of word bigrams where the words are separated by a space
+  and each digit is replaced by a <em>?</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.unambig-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) .
+</p>
+</dd>
+<dt class="hdlist1">
+lang.params-model
+</dt>
+<dd>
+<p>
+  (Optional - 3.0x  legacy tesseract) .
+</p>
+</dd>
+<dt class="hdlist1">
+lang.lstm
+</dt>
+<dd>
+<p>
+  (Required - 4.0 LSTM) Neural net trained recognition model generated by lstmtraining.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.lstm-punc-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 4.0 LSTM) A dawg made from punctuation patterns found around words.
+  The "word" part is replaced by a single space. Uses lang.lstm-unicharset.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.lstm-word-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 4.0 LSTM) A dawg made from dictionary words from the language.
+  Uses lang.lstm-unicharset.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.lstm-number-dawg
+</dt>
+<dd>
+<p>
+  (Optional - 4.0 LSTM) A dawg made from tokens which originally contained digits.
+  Each digit is replaced by a space character. Uses lang.lstm-unicharset.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.lstm-unicharset
+</dt>
+<dd>
+<p>
+  (Required - 4.0 LSTM) The unicode character set that Tesseract recognizes, with properties.
+  Same unicharset must be used to train the LSTM and build the lstm-*-dawgs files.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.lstm-recoder
+</dt>
+<dd>
+<p>
+  (Required - 4.0 LSTM) Unicharcompress, aka the recoder, which maps the unicharset
+  further to the codes actually used by the neural network recognizer. This is created as
+  part of the starter traineddata by combine_lang_model.
+</p>
+</dd>
+<dt class="hdlist1">
+lang.version
+</dt>
+<dd>
+<p>
+  (Optional) Version string for the traineddata file.
+  First appeared in version 4.0 of Tesseract.
+  Old version of traineddata files will report Version:Pre-4.0.0.
+  4.0 version of traineddata files may include the network spec
+  used for LSTM training as part of version string.
+</p>
+</dd>
+</dl></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_history">HISTORY</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>combine_tessdata(1) first appeared in version 3.00 of Tesseract</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_see_also">SEE ALSO</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>tesseract(1)</p></div>
+<div class="paragraph"><p>tesseract(1), wordlist2dawg(1), cntraining(1), mftraining(1), unicharset(5),
+unicharambigs(5)</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_copying">COPYING</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>Copyright (C) 2012 Google, Inc.
+<div class="paragraph"><p>Copyright (C) 2009, Google Inc.
 Licensed under the Apache License, Version 2.0</p></div>
 </div>
 </div>
@@ -783,7 +1063,7 @@ at Hewlett Packard (1985-1995) and Google (2006-present).</p></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2019-01-16 21:53:46 CET
+ 2022-01-22 13:50:22 CET
 </div>
 </div>
 </body>

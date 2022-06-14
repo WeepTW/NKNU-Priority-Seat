@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="AsciiDoc 9.0.0rc2">
-<title>AMBIGUOUS_WORDS(1)</title>
+<title>CLASSIFIER_TESTER(1)</title>
 <style type="text/css">
 /* Shared CSS for AsciiDoc xhtml11 and html5 backends */
 
@@ -730,32 +730,99 @@ asciidoc.install();
 /*]]>*/
 </script>
 </head>
-<body class="manpage">
+<body class="article">
 <div id="header">
-<h1>
-AMBIGUOUS_WORDS(1) Manual Page
-</h1>
-<h2>NAME</h2>
-<div class="sectionbody">
-<p>ambiguous_words -
-   generate sets of words Tesseract is likely to find ambiguous
-</p>
-</div>
+<h1>CLASSIFIER_TESTER(1)</h1>
 </div>
 <div id="content">
 <div class="sect1">
+<h2 id="_name">NAME</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>classifier_tester - for <strong>legacy tesseract</strong> engine.</p></div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
-<div class="paragraph"><p><strong>ambiguous_words</strong> [-l lang] <em>TESSDATADIR</em> <em>WORDLIST</em> <em>AMBIGUOUSFILE</em></p></div>
+<div class="paragraph"><p><strong>classifier_tester</strong> -U <em>unicharset_file</em> -F <em>font_properties_file</em> -X <em>xheights_file</em>  -classifier <em>x</em> -lang <em>lang</em> [-output_trainer trainer] *.tr</p></div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>ambiguous_words(1) runs Tesseract in a special mode, and for each word
-in word list, produces a set of words which Tesseract thinks might be
-ambiguous with it.   <em>TESSDATADIR</em> must be set to the absolute path of
-a directory containing <em>tessdata/lang.traineddata</em>.</p></div>
+<div class="paragraph"><p>classifier_tester(1) runs Tesseract in a special mode.
+It takes a list of .tr files and tests a character classifier
+on data as formatted for training,
+but it doesn&#8217;t have to be the same as the training data.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_in_out_arguments">IN/OUT ARGUMENTS</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>a list of .tr files</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_options">OPTIONS</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+-l <em>lang</em>
+</dt>
+<dd>
+<p>
+        (Input) three character language code; default value <em>eng</em>.
+</p>
+</dd>
+<dt class="hdlist1">
+-classifier <em>x</em>
+</dt>
+<dd>
+<p>
+        (Input) One of "pruner", "full".
+</p>
+</dd>
+<dt class="hdlist1">
+-U <em>unicharset</em>
+</dt>
+<dd>
+<p>
+        (Input) The unicharset for the language.
+</p>
+</dd>
+<dt class="hdlist1">
+-F <em>font_properties_file</em>
+</dt>
+<dd>
+<p>
+        (Input) font properties file, each line is of the following form, where each field other than the font name is 0 or 1:
+</p>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>*font_name* *italic* *bold* *fixed_pitch* *serif* *fraktur*</pre>
+</div></div>
+</dd>
+<dt class="hdlist1">
+-X <em>xheights_file</em>
+</dt>
+<dd>
+<p>
+        (Input) x heights file, each line is of the following form, where xheight is calculated as the pixel x height of a character drawn at 32pt on 300 dpi. [ That is, if base x height + ascenders + descenders = 133, how much is x height? ]
+</p>
+<div class="literalblock">
+<div class="content monospaced">
+<pre>*font_name* *xheight*</pre>
+</div></div>
+</dd>
+<dt class="hdlist1">
+-output_trainer <em>trainer</em>
+</dt>
+<dd>
+<p>
+        (Output, Optional) Filename for output trainer.
+</p>
+</dd>
+</dl></div>
 </div>
 </div>
 <div class="sect1">
@@ -783,7 +850,7 @@ at Hewlett Packard (1985-1995) and Google (2006-present).</p></div>
 <div id="footer">
 <div id="footer-text">
 Last updated
- 2019-01-16 21:53:46 CET
+ 2019-09-28 22:27:15 CEST
 </div>
 </div>
 </body>
