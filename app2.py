@@ -59,9 +59,9 @@ def handle_message(event):
                      label='我自己來！',
                      uri='https://lend.nknu.edu.tw/semac/home/index.html'
                  )
-             ]
-         )
-     )
+               ]
+             )
+           )
          line_bot_api.reply_message(event.reply_token, buttons_template_message)
          return 0
     if re.match('我要預約！',message):
