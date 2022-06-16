@@ -1,4 +1,3 @@
-from lib2to3.pgen2 import token
 from flask import Flask, request, abort
 
 from linebot import (
@@ -37,11 +36,48 @@ def callback():
         return 'OK'
 #訊息傳遞區塊
 ##### 基本上程式編輯都在這個function #####
-list1 = []
 @handler.add(MessageEvent, message=TextMessage)
+list1 = []
+def handle_message_list(event):
+    message = text =event.message.text
+    list1 = []
+    if re.match('開始',message):
+        list1.clear
+        list1.append('開始')
+    if re.match('我要預約！',message):
+        list1.append('預約')
+    if re.match('和平校區',message):
+        list1.append('和平')
+    if re.match('燕巢校區',message):
+        list1.append('燕巢')
+    if re.match('和平研究小間',message):
+        list1.append('和平研究小間')
+    if re.match('和平小團體室 4F',message):
+        list1.append('和平團體室 4F')
+    if re.match('和平小團體室 5F',message):
+        list1.append('和平團體室 5F')
+    if re.match('燕巢團體討論室',message):
+        list1.append('燕巢團體討論室')
+    if re.match('燕巢欣賞室',message):
+        list1.append('燕巢欣賞室')
+    if re.match('燕巢研究小間',message):
+        list1.append('燕巢研究小間')
+    if re.match('燕巢團體討論室 2A',message):
+        list1.append('燕巢團體討論室 2A')
+    if re.match('燕巢團體討論室 2B',message):
+        list1.append('燕巢團體討論室 2B')
+    if re.match('燕巢欣賞室 2A',message):
+        list1.append('燕巢欣賞室 2A')
+    if re.match('燕巢欣賞室 2B',message):
+        list1.append('燕巢欣賞室 2B')
+    if re.match('燕巢討論室',message):
+        list1.append('燕巢討論室')
+    print(list1)
+
+
 def handle_message(event):
     message = text =event.message.text
-    if re.match('開始',message):    
+    if '開始' in list1:    
         buttons_template_message = TemplateSendMessage(
         alt_text='選擇服務',
         template=ButtonsTemplate(
@@ -64,10 +100,6 @@ def handle_message(event):
          )
      )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
-
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('我要預約！',message):
         reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.研究小間 三天前\n2.小型團體(4F、5F)(3人) 七天前\n燕巢校區-\n1.研究小間-代號 spaceC 三天前\n2.團體討論室(2A、2B)、欣賞室(2A、2B) 七天前\n 3.討論室(1A、1B、1C、1D、1E)\n請點選下列表單讓我們替您預約空間喔~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
@@ -89,10 +121,7 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_campus)
-#和平
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
+        #和平
     if re.match('和平校區',message):
         buttons_template_message_peace = TemplateSendMessage(
         alt_text='預約空間',
@@ -117,19 +146,16 @@ def handle_message_reserve_campus(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_peace)
     if re.match('和平研究小間',message):
-        list1.append(23)
-        return list1
+        token.append(23)
+        return token
     if re.match('和平小團體室 4F',message):
-        list1.append(26)
-        return list1
+        token.append(26)
+        return token
     if re.match('和平小團體室 5F',message):
-        list1.append(27)
-        return list1
+        token.append(27)
+        return token
 
-#燕巢
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
+    #燕巢
     if re.match('燕巢校區',message):
         buttons_template_message_swallow = TemplateSendMessage(
         alt_text='預約空間',
@@ -157,9 +183,6 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_swallow)
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('燕巢團體討論室',message):
         buttons_template_message2 = TemplateSendMessage(
         alt_text='預約空間',
@@ -179,9 +202,6 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message2)
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('燕巢欣賞室',message):
         buttons_template_message3 = TemplateSendMessage(
         alt_text='預約空間',
@@ -201,28 +221,26 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message3)
+
     if re.match('燕巢研究小間',message):
-        list1.append(19)
-        return list1
+        token.append(19)
+        return token
     if re.match('燕巢團體討論室 2A',message):
-        list1.append(5)
-        return list1
+        token.append(5)
+        return token
     if re.match('燕巢團體討論室 2B',message):
-        list1.append(6)
-        return list1
+        token.append(6)
+        return token
     if re.match('燕巢欣賞室 2A',message):
-        list1.append(7)
-        return list1
+        token.append(7)
+        return token
     if re.match('燕巢欣賞室 2B',message):
-        list1.append(8)
-        return list1
+        token.append(8)
+        return token
     if re.match('燕巢討論室',message):
-        list1.append(32)
-        return list1
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
-    if list1 == []:
+        token.append(32)
+        return token
+    if Enquiry(token):
         line_bot_api.reply_message(event.reply_token,TextSendMessage('請選擇預約時間'))
         buttons_template_message_date = TemplateSendMessage(
         alt_text='預約日期',
@@ -250,9 +268,6 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_date)
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text  
     if re.match('今天',message):
         buttons_template_message_time = TemplateSendMessage(
         alt_text='預約時間',
@@ -276,9 +291,6 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_time)
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('明天',message):
         buttons_template_message_time_tom = TemplateSendMessage(
         alt_text='預約時間',
@@ -302,9 +314,6 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_time_tom)
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('後天',message):
         buttons_template_message_time_at = TemplateSendMessage(
         alt_text='預約時間',
@@ -328,9 +337,6 @@ def handle_message_reserve_campus(event):
          )
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_time_at)
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('大後天',message):
         buttons_template_message_time_aat = TemplateSendMessage(
         alt_text='預約時間',
@@ -355,9 +361,6 @@ def handle_message_reserve_campus(event):
         )
         line_bot_api.reply_message(event.reply_token, buttons_template_message_time_aat)
 
-@handler.add(MessageEvent, message=TextMessage)        
-def handle_message_reserve_campus(event):   
-    message = text =event.message.text
     if re.match('取消預約',message):
         reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? '
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
@@ -384,7 +387,12 @@ def handle_message_reserve_campus(event):
     if re.match('確定取消',message):
         #cancel()
         return 0
-        
+    
+def Enquiry(token):
+    if len(token) == 0:
+        return 0
+    else:
+        return 1
 #學生id匯入
 stuid = []
 if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
@@ -397,4 +405,3 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
