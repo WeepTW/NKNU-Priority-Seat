@@ -74,7 +74,7 @@ def handle_message_list(event):
     if re.match('圖片',message)or re.match('時刻對照表',message):
         image_message = ImageSendMessage(
             original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',
-            preview_image_url='https://m.ewebweb.com/kjsm/100414.html')
+            preview_image_url='https://lineimg.omusic.com.tw/img/album/1916700.jpg?v=20200411212652')
         line_bot_api.reply_message(event.reply_token, image_message)
     if re.match('我要預約！',message):
         reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.代號 01-研究小間 三天前\n2.代號 02 03-小型團體(4F、5F)(3人) 七天前 \n燕巢校區-\n1.代號 11-研究小間 三天前 \n2.依序代號 12 13 14 15-團體討論室(2A、2B)、欣賞室(2A、2B) 七天前 \n 3.代號 16-討論室(1A、1B、1C、1D、1E)\n請輸入您要預約的空間代號\n如果打錯了 要做新的預約的話 請打「開始」'
