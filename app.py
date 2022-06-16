@@ -42,10 +42,6 @@ token = []
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message_list(event):
     message = text =event.message.text
-    #學生id匯入
-    if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
-        stu_id = '410831143'
-        token.append(stu_id)
     if re.match('開始',message):    
         buttons_template_message = TemplateSendMessage(
         alt_text='選擇服務',
@@ -188,6 +184,10 @@ def handle_message_list(event):
         #cancel()
         reserve_text = '已取消所有預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
+    #學生id匯入
+    if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
+        stu_id = '410831143'
+        token.append(stu_id)
     
 import os
 if __name__ == "__main__":
