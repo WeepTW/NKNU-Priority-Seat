@@ -25,8 +25,7 @@ def callback():
         signature = request.headers['X-Line-Signature']
         body = request.get_data(as_text=True)
         app.logger.info("Request body: " + body)
-        user = line_bot_api.get_profile('<user_id>')
-        print(user)
+
         try:
             print(body,signature)
             handler.handle(body, signature)
