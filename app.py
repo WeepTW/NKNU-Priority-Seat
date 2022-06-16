@@ -25,7 +25,8 @@ def callback():
         signature = request.headers['X-Line-Signature']
         body = request.get_data(as_text=True)
         app.logger.info("Request body: " + body)
-
+        user = line_bot_api.get_profile('<user_id>')
+        print(user)
         try:
             print(body,signature)
             handler.handle(body, signature)
@@ -71,6 +72,10 @@ def handle_message_list(event):
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
         token.clear
         return token
+    if re.match('圖片',message)or re.match('時刻對照表',message):
+        image_message = ImageSendMessage(
+            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
+        line_bot_api.reply_message(event.reply_token, image_message)
     if re.match('我要預約！',message):
         reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.代號 01-研究小間 三天前\n2.代號 02 03-小型團體(4F、5F)(3人) 七天前 \n燕巢校區-\n1.代號 11-研究小間 三天前 \n2.依序代號 12 13 14 15-團體討論室(2A、2B)、欣賞室(2A、2B) 七天前 \n 3.代號 16-討論室(1A、1B、1C、1D、1E)\n請輸入您要預約的空間代號\n如果打錯了 要做新的預約的話 請打「開始」'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
@@ -105,75 +110,57 @@ def handle_message_list(event):
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('01',message) or re.match('０１',message):
         token.append(23)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+        
         return token
     if re.match('02',message) or re.match('０２',message):
         token.append(26)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+        
         return token
     if re.match('03',message) or re.match('０３',message):
         token.append(27)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+        
         return token
     if re.match('11',message) or re.match('１１',message):
         token.append(19)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+        
         return token
     if re.match('12',message) or re.match('１２',message):
         token.append(5)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+      
         return token
     if re.match('13',message) or re.match('１３',message):
         token.append(6)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+   
         return token
     if re.match('14',message) or re.match('１４',message):
         token.append(7)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+   
         return token
     if re.match('15',message) or re.match('１５',message):
         token.append(8)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+  
         return token
     if re.match('16',message) or re.match('１６',message):
         token.append(32)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片)'
+        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        image_message = ImageSendMessage(
-            original_content_url='https://q410831143.weebly.com/uploads/1/3/3/8/133895349/rpa_orig.jpg',)
-        line_bot_api.reply_message(event.reply_token, image_message)
+ 
         return token
     if re.match('現在',message):
         token.append(1000)
