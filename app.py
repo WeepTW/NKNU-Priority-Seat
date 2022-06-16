@@ -65,8 +65,36 @@ def handle_message_list(event):
          )
      )
         line_bot_api.reply_message(event.reply_token, buttons_template_message)
+        token.clear
     if re.match('我要預約！',message):
         reserve_text = '預約前做個小提醒~依次一個帳號只能借用一個空間\n能借用的空間有:\n和平校區-\n1.研究小間-代號 01 三天前\n2.小型團體(4F、5F)(3人)-代號 02 03 七天前\n燕巢校區-\n1.研究小間-代號 11 三天前\n2.團體討論室(2A、2B)、欣賞室(2A、2B)-依序代號 12 13 14 15 七天前\n 3.討論室(1A、1B、1C、1D、1E)-代號 16\n請書您要預約的空間代號'
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
+    if re.match('取消預約',message):
+        reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? '
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
+        confirm_template_message = TemplateSendMessage(
+             alt_text='確定取消',
+             template=ConfirmTemplate(
+                 text='您確定要取消嗎？',
+                 actions=[
+                     PostbackAction(
+                         label='取消',
+                         display_text='確定取消',
+                         data='action=確定取消'
+                     ),
+                     PostbackAction(
+                         label='繼續',
+                         display_text='不要取消',
+                         data='action=不要取消'
+                     ),
+                 ]
+             )
+         )
+        line_bot_api.reply_message(event.reply_token, confirm_template_message)
+        return 0
+    if re.match('確定取消',message):
+        #cancel()
+        reserve_text = '已取消所有預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('01',message) or re.match('０１',message):
         token.append(23)
@@ -105,90 +133,62 @@ def handle_message_list(event):
         reserve_text = '請選擇您要預約的時間：\n(現在/今天上午/今天中午/今天晚上\n明天上午/明天中午/明天晚上\n後天上午/後天中午/後天晚上\n大後天上午/大後天中午/大後天晚上)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('現在'):
-        token.append('now')
-        reserve_text = '預約成功'
+        token.append(1000)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('今天上午'):
-        token.append('todaymn')
-        reserve_text = '預約成功'
+        token.append(1008)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('今天中午'):
-        token.append('todayan')
-        reserve_text = '預約成功'
+        token.append(1012)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('今天晚上'):
-        token.append('todayev')
-        reserve_text = '預約成功'
+        token.append(1016)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('明天上午'):
-        token.append('tommn')
-        reserve_text = '預約成功'
+        token.append(1108)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('明天中午'):
-        token.append('toman')
-        reserve_text = '預約成功'
+        token.append(1112)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('明天晚上'):
-        token.append('toev')
-        reserve_text = '預約成功'
+        token.append(1116)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('後天上午'):
-        token.append('datmn')
-        reserve_text = '預約成功'
+        token.append(1208)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('後天中午'):
-        token.append('datan')
-        reserve_text = '預約成功'
+        token.append(1212)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('後天晚上'):
-        token.append('datev')
-        reserve_text = '預約成功'
+        token.append(1216)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('大後天上午'):
-        token.append('daatmn')
-        reserve_text = '預約成功'
+        token.append(1308)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('大後天中午'):
-        token.append('daatan')
-        reserve_text = '預約成功'
+        token.append(1312)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     if re.match('大後天晚上'):
-        token.append('daatev')
-        reserve_text = '預約成功'
+        token.append(1316)
+        reserve_text = '預約成功 請打「開始」做新預約'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     
-    if re.match('取消預約',message):
-        reserve_text = '提醒您 我們會取消所有的借用預約 您確定要取消預約嗎? '
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-        confirm_template_message = TemplateSendMessage(
-             alt_text='確定取消',
-             template=ConfirmTemplate(
-                 text='您確定要取消嗎？',
-                 actions=[
-                     PostbackAction(
-                         label='取消',
-                         display_text='確定取消',
-                         data='action=確定取消'
-                     ),
-                     PostbackAction(
-                         label='繼續',
-                         display_text='不要取消',
-                         data='action=不要取消'
-                     ),
-                 ]
-             )
-         )
-        line_bot_api.reply_message(event.reply_token, confirm_template_message)
-        return 0
-    if re.match('確定取消',message):
-        #cancel()
-        reserve_text = '已取消所有預約'
-        line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
     #學生id匯入
     if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
         stu_id = '410831143'
         token.append(stu_id)
-    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
