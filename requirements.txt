@@ -1,3 +1,13 @@
 line-bot-sdk 
 bs4 
 flask 
+pymongo 
+datetime 
+pandas 
+SnowNLP 
+pyshorteners
+rpaframework
+torch
+glob2
+tqdm
+pytesseract
