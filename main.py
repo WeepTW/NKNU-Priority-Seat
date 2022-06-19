@@ -1,5 +1,4 @@
 from run.view import record, reservation,cancel,countblock
-from run.pyteseract import captcha
 '''
 ＲＥＡＤＭＥ！卡在讀取驗證碼圖片
 countblock(hour = now().hour, min = now().minute) -> Int ,if >28 then reservation will return error

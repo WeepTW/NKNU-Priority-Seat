@@ -5,6 +5,9 @@ pymongo
 datetime 
 pandas 
 SnowNLP 
-emoji 
 pyshorteners 
 scipy
+rpaframework
+torch
+glob
+tqdm
