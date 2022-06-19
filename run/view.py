@@ -135,9 +135,9 @@ def reservation(id,token,days = 0,hour = datetime.datetime.now().hour, min = dat
         if not days in range(4): return 'DaysError'
     else: return 'TokenError'
     if not(type(hour) == type(1) and type(min) == type(1)): return 'TimeError:Chaos'
-    if 0 < hour < 23 and 0 <= min < 60: 'TimeError:WrongType'
     hour = int(hour)
     min = int(min)
+    if 0 < hour < 23 and 0 <= min < 60: 'TimeError:WrongType'
     if 0 < min <= (28 if days==0 else 30): min = 30
     elif min >= 58 and days == 0: hour += 1; min= 30
     else: hour += 1; min = 0
