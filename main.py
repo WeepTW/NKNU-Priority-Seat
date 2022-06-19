@@ -1,4 +1,7 @@
-from run.view import record, reservation,cancel,countblock
+
+import os,sys
+sys.path.append(r'.\run')
+from run.view2 import record, reservation,cancel
 '''
 ＲＥＡＤＭＥ！卡在讀取驗證碼圖片
 countblock(hour = now().hour, min = now().minute) -> Int ,if >28 then reservation will return error
@@ -16,5 +19,5 @@ if __name__ == '__main__':
     #reservation(5,days=2)
     #record()
     #cancel()
-    print(reservation(410731220,32,startblock=countblock(15,29)))
+    print(reservation('Ue487ad1b559280fffc466af017f47e79',32,days = 1,hour = 12,min=0))
     
