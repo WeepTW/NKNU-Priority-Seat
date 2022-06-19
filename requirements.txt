@@ -1,11 +1,9 @@
 line-bot-sdk 
 bs4 
 flask 
-pymongo 
 datetime 
 pandas 
-SnowNLP 
-pyshorteners
+scipy
 rpaframework
 torch
 glob2
