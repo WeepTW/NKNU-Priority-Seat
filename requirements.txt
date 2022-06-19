@@ -5,7 +5,7 @@ datetime
 pandas
 scipy
 rpaframework
-torch
+torch.nn
 glob2
 tqdm
 pytesseract
