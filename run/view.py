@@ -1,15 +1,12 @@
 import os
-from sre_constants import JUMP
 from RPA.Browser.Selenium import Selenium
 import pandas as pd
 import datetime
 from selenium.common.exceptions import WebDriverException as ex
 from mod import captcha1,captcha2
-from RPA.SAP import SAP
 lib = Selenium()
 dirname = os.path.dirname(os.path.realpath(__file__))
 path = dirname+ r'\captcha.png'
-sap = SAP()
 
 def __log(id):
     user = []
@@ -112,7 +109,7 @@ def cancel(id):
 
 def record(id): #default to show the lastest, max of n is 15
     if __log(id) == []:
-        return ['PermissionError']
+        return 'PermissionError'
     lib.go_to('https://lend.nknu.edu.tw/semac/service/history')
     s = ''
     while(lib.get_element_attribute('xpath://*[@id="history_vue"]/div/div/div[1]/div[3]/div/button[2]','disable') != ''):
