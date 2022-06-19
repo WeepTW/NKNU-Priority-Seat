@@ -1,8 +1,8 @@
-line-bot-sdk 
-bs4 
-flask 
-datetime 
-pandas 
+line-bot-sdk
+bs4
+flask
+datetime
+pandas
 scipy
 rpaframework
 torch
