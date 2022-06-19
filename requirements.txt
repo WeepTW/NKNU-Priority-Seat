@@ -9,5 +9,6 @@ pyshorteners
 scipy
 rpaframework
 torch
-glob
+glob2
 tqdm
+pytesseract
