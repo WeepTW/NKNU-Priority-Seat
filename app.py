@@ -4,9 +4,6 @@ from linebot import (
     LineBotApi, WebhookHandler
 )
 import os
-import sys
-sys.path.append(r'.\run')
-from run.view import cancel,record,reservation,log
 from linebot.exceptions import (
     InvalidSignatureError
 )
@@ -104,11 +101,11 @@ def handle_message_list(event):
          )
         line_bot_api.reply_message(event.reply_token, confirm_template_message)
     if re.match('確定取消',message):
-        reserve_text = cancel(line_bot_api.get_profile('<user_id>'))
+        reserve_text = '幫你取消囉~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('確認預約情形',message):
-        reserve_text = record(line_bot_api.get_profile('<user_id>'))
+        reserve_text = '工程師還在努力開發喔!'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         
