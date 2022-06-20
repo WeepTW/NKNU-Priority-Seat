@@ -101,7 +101,7 @@ def handle_message_list(event):
         line_bot_api.reply_message(event.reply_token, confirm_template_message)
     if re.match('確定取消',message):
         #cancel()
-        reserve_text = '已取消所有預約囉~'
+        reserve_text = '幫您取消所有預約囉~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('確認預約情形',message):
