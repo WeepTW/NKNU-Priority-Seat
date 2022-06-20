@@ -1,16 +1,12 @@
 import os
-from sre_constants import JUMP
 from RPA.Browser.Selenium import Selenium
 import pandas as pd
 import datetime
 from selenium.common.exceptions import WebDriverException as ex
 from mod import captcha1,captcha2
-from RPA.SAP import SAP
-import time
 lib = Selenium()
 dirname = os.path.dirname(os.path.realpath(__file__))
 path = dirname+ r'\captcha.png'
-sap = SAP()
 
 def log(id):
     user = []
