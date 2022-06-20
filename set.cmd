@@ -7,5 +7,4 @@ pip install tqdm
 pip install scipy
 pip install datetime
 pip install pandas
-cls
-python main.py
+exit
