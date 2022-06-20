@@ -17,7 +17,7 @@ line_bot_api = LineBotApi('uxVsnPZdc7sMpdkSpB2fUfM2BIMvHAt2qieS58JFnkN7Tcm6vAtB7
 handler = WebhookHandler('93df464b067cee15e60a3f1759471f90')
 
 line_bot_api.push_message('Ub7e9f322724c6b15cab6fc57630e5d8c', TextSendMessage(text='check'))
-#line_bot_api.push_message(TextSendMessage(text='請回傳「開始」進行服務~'))#正式來
+line_bot_api.push_message(TextSendMessage(text='請回傳「開始」進行服務~'))
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -100,65 +100,65 @@ def handle_message_list(event):
          )
         line_bot_api.reply_message(event.reply_token, confirm_template_message)
     if re.match('確定取消',message):
-        #cancel()
-        reserve_text = '已取消所有預約'
+        reserve_text = cancel(line_bot_api.get_profile('<user_id>'))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('確認預約情形',message):
-        #record()
-        reserve_text = '你目前所有的預約如下:'
+        reserve_text = record(line_bot_api.get_profile('<user_id>'))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
+        
+        
     if re.match('01',message) or re.match('０１',message):
         token.append(23)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         return token
     if re.match('02',message) or re.match('０２',message):
         token.append(26)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         return token
     if re.match('03',message) or re.match('０３',message):
         token.append(27)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         return token
     if re.match('11',message) or re.match('１１',message):
         token.append(19)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         return token
     if re.match('12',message) or re.match('１２',message):
         token.append(5)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
       
         return token
     if re.match('13',message) or re.match('１３',message):
         token.append(6)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
    
         return token
     if re.match('14',message) or re.match('１４',message):
         token.append(7)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
    
         return token
     if re.match('15',message) or re.match('１５',message):
         token.append(8)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
   
         return token
     if re.match('16',message) or re.match('１６',message):
         token.append(32)
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
  
         return token
