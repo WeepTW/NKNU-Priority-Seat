@@ -9,5 +9,4 @@ glob2
 tqdm
 pytesseract
 tqdm
-scipy
 datetime
