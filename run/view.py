@@ -5,11 +5,9 @@ import datetime
 from selenium.common.exceptions import WebDriverException as ex
 from mod import captcha1
 #from mod import captcha2
-import time
 lib = Selenium()
 dirname = os.path.dirname(os.path.realpath(__file__))
 path = dirname+ r'\captcha.png'
-sap = SAP()
 
 def log(id):
     user = []
