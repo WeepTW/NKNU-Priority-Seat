@@ -1,14 +1,14 @@
 from concurrent.futures import thread
 import os
 from PIL import Image
-from cv2 import threshold
+#from cv2 import threshold
 import pytesseract
-import torch
-from dataset import Synth90kDataset
-from torch.utils.data import DataLoader
-from model import CRNN
-from tqdm import tqdm
-from ctc_decoder import ctc_decode
+#import torch
+#from dataset import Synth90kDataset
+#from torch.utils.data import DataLoader
+#from model import CRNN
+#from tqdm import tqdm
+#from ctc_decoder import ctc_decode
 from PIL import Image
 from config import train_config as config
 
@@ -64,7 +64,7 @@ def captcha1(x=1):
 				pixdata[x,y]=255
 	imgclear=imgbin
 	return pytesseract.image_to_string(imgclear,config='-c tessedit_char_whitelist=0123456789 --psm 6')
-
+'''
 def captcha2():
     dirname = os.path.dirname(os.path.realpath(__file__))
     path = dirname + r'\captcha.png'
@@ -180,3 +180,4 @@ def captcha2():
     for char in predict(crnn, predict_loader, Synth90kDataset.LABEL2CHAR,decode_method=decode_method,beam_size=beam_size)[0]:
         s += char
     return s
+'''
