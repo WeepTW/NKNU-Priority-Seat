@@ -4,7 +4,10 @@ flask
 pymongo 
 datetime 
 pandas 
-SnowNLP 
-emoji 
-pyshorteners 
+rpaframework
+glob2
+tqdm
+pytesseract
+tqdm
 scipy
+datetime
