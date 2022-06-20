@@ -1,9 +1,3 @@
-python --version
-pip --version
-pip install rpaframework
-pip install torch
-pip install glob
-pip install tqdm
-pip install scipy
-pip install datetime
-pip install pandas
+cmd /c start /min .\set.cmd
+cls
+python main.py
