@@ -12,7 +12,7 @@ dirname = os.path.dirname(os.path.realpath(__file__))
 path = dirname+ r'\captcha.png'
 sap = SAP()
 
-def __log(id):
+def log(id):
     user = []
     df = pd.read_excel(dirname + r'\Info.xlsx',index_col=0)
     if id in list(df.index):
@@ -32,8 +32,9 @@ def __log(id):
         lib.input_text('uAuthorizationCodeInput', captcha1())
         #lib.click_button('uLogin') 不知道為什麼不用這個就會自己登入了
         notLogIn = lib.is_alert_present('驗證碼輸入不正確！')
-    lib.go_to(lib.get_element_attribute('xpath://*[@id="ctl00_phMain_divMenu2"]/div[2]/div[2]/div[10]/div/div/a','href'))
-    return [user['account'],user['reservation'],user['friends']]
+        link = lib.get_element_attribute('xpath://*[@id="ctl00_phMain_divMenu2"]/div[2]/div[2]/div[10]/div/div/a','href')
+    lib.go_to(link)
+    return [user['account'],user['reservation'],user['friends'],link]
 
 def __countblock(hour,min):
     if lib.does_page_contain_element(f'xpath://*[@id="owl-example"]/div[1]/div/div/div/table[2]/tbody/tr[2]/th'): page = ''
@@ -85,7 +86,6 @@ def __summit(colIndex,pageIndex,startblock,titular = []):
             return False
         lib.screenshot('id=input-captcha-pic', path)
         lib.input_text(f'xpath://*[@id="expire_vue"]/div[2]/div/form/div[{buttonIndex}]/div/div/input', captcha2())
-        time.sleep(3)
         lib.click_button(f'xpath://*[@id="expire_vue"]/div[2]/div/form/div[{buttonIndex +1}]/div[2]/button')
         if lib.does_page_contain_button('xpath:/html/body/div[4]/div/div[3]/button[2]'):
             lib.click_button('xpath:/html/body/div[4]/div/div[3]/button[2]')
@@ -95,7 +95,7 @@ def __summit(colIndex,pageIndex,startblock,titular = []):
     return lib.does_page_contain_button(f'xpath://*[@id="history_vue"]/div/div/table/tbody/tr[1]/td[9]/div/button[2]')
 
 def cancel(id):
-    if __log(id) == []:
+    if log(id) == []:
         return ['PermissionError']
     lib.go_to('https://lend.nknu.edu.tw/semac/service/history')
     i = 0
@@ -113,7 +113,7 @@ def cancel(id):
     return f'{i} rooms were cancelled successfully'
 
 def record(id): #default to show the lastest, max of n is 15
-    if __log(id) == []:
+    if log(id) == []:
         return ['PermissionError']
     lib.go_to('https://lend.nknu.edu.tw/semac/service/history')
     s = ''
@@ -146,7 +146,7 @@ def reservation(id,token,days = 0,hour = datetime.datetime.now().hour, min = dat
     if 0 < min <= (28 if days==0 else 30): min = 30
     elif min >= 58 and days == 0: hour += 1; min= 30
     else: hour += 1; min = 0
-    user = __log(id)
+    user = log(id)
     if user == []: return 'PermissionError'
     lib.go_to('https://lend.nknu.edu.tw/semac/service/index')
     lib.go_to(f'https://lend.nknu.edu.tw/semac/service/expire2/{8 if token in [5,6,7,8] else token}_{datetime.date.today() + datetime.timedelta(days=days)}')
