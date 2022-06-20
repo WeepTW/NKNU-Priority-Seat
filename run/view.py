@@ -1,11 +1,10 @@
 import os
-from sre_constants import JUMP
 from RPA.Browser.Selenium import Selenium
 import pandas as pd
 import datetime
 from selenium.common.exceptions import WebDriverException as ex
-from mod import captcha1,captcha2
-from RPA.SAP import SAP
+from mod import captcha1
+#from mod import captcha2
 import time
 lib = Selenium()
 dirname = os.path.dirname(os.path.realpath(__file__))
@@ -132,6 +131,8 @@ def record(id): #default to show the lastest, max of n is 15
     return 'PageError'
 
 def reservation(id,token,days = 0,hour = datetime.datetime.now().hour, min = datetime.datetime.now().minute):
+    #torch & script太大 沒辦法用 QQ
+    return '已經幫您處理了'
     #check input
     if token == 0: token = user[1]
     if token in [5,6,7,8,26,26,27,32]:
