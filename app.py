@@ -3,9 +3,14 @@ from flask import Flask, request, abort
 from linebot import (
     LineBotApi, WebhookHandler
 )
+import os
+import sys
+sys.path.append(r'.\run')
+from run.view import cancel,record,reservation,log
 from linebot.exceptions import (
     InvalidSignatureError
 )
+from run.view import record, reservation,cancel,countblock
 from linebot.models import *
 import re
 
@@ -99,57 +104,57 @@ def handle_message_list(event):
          )
         line_bot_api.reply_message(event.reply_token, confirm_template_message)
     if re.match('確定取消',message):
-        reserve_text = '幫你取消囉~'
+        reserve_text = cancel(line_bot_api.get_profile('<user_id>'))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('確認預約情形',message):
-        reserve_text = '開發中 請稍後'
+        reserve_text = record(line_bot_api.get_profile('<user_id>'))
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         
      if re.match('01',message) or re.match('０１',message):
         token = 23
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('02',message) or re.match('０２',message):
         token = 26
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('03',message) or re.match('０３',message):
         token = 27
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
     if re.match('11',message) or re.match('１１',message):
         token = 19
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
     if re.match('12',message) or re.match('１２',message):
         token = 5
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
       
     if re.match('13',message) or re.match('１３',message):
         token = 6
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
    
     if re.match('14',message) or re.match('１４',message):
         token = 7
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
    
     if re.match('15',message) or re.match('１５',message):
         token = 8
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('16',message) or re.match('１６',message):
         token = 32
-        reserve_text = '請選擇您要預約的時間(預約時間辦法請參考圖片-打上「圖片」)'
+        reserve_text = '請選擇您要預約的時間\n(預約時間辦法請參考圖片-打上「圖片」)'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
  
     if re.match('現在',message):
@@ -192,8 +197,6 @@ def handle_message_list(event):
         reserve_text = '幫你處理囉~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
  
-
-import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
