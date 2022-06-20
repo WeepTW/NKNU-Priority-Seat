@@ -1,12 +1,16 @@
 import os
+from sre_constants import JUMP
 from RPA.Browser.Selenium import Selenium
 import pandas as pd
 import datetime
 from selenium.common.exceptions import WebDriverException as ex
 from mod import captcha1,captcha2
+from RPA.SAP import SAP
+import time
 lib = Selenium()
 dirname = os.path.dirname(os.path.realpath(__file__))
 path = dirname+ r'\captcha.png'
+sap = SAP()
 
 def __log(id):
     user = []
@@ -73,14 +77,15 @@ def __summit(colIndex,pageIndex,startblock,titular = []):
         try:
             lib.click_element_when_visible(f'xpath://*[@id="owl-example"]/div[1]/div/div{page}/div/table[2]/tbody/tr[{startblock}]/td{col}/span')
         except ex:
-            lib.scroll_element_into_view(f'xpath://*[@id="owl-example"]/div[1]/div/div{page}/div/table[2]/tbody/tr[{tryTime}]/td{col}')
-            if lib.does_page_contain_element(f'xpath://*[@id="owl-example"]/div[1]/div/div{page}/div/table[2]/tbody/tr[{tryTime+2}]/td{col}'): tryTime += 2
+            lib.scroll_element_into_view(f'xpath://*[@id="owl-example"]/div[1]/div/div{page}/div/table[2]/tbody/tr[{tryTime}]/th')
+            if lib.does_page_contain_element(f'xpath://*[@id="owl-example"]/div[1]/div/div{page}/div/table[2]/tbody/tr[{tryTime+2}]/th'): tryTime += 2
             else: lib.scroll_element_into_view('id:head_vue')
             continue
         except:
             return False
         lib.screenshot('id=input-captcha-pic', path)
         lib.input_text(f'xpath://*[@id="expire_vue"]/div[2]/div/form/div[{buttonIndex}]/div/div/input', captcha2())
+        time.sleep(3)
         lib.click_button(f'xpath://*[@id="expire_vue"]/div[2]/div/form/div[{buttonIndex +1}]/div[2]/button')
         if lib.does_page_contain_button('xpath:/html/body/div[4]/div/div[3]/button[2]'):
             lib.click_button('xpath:/html/body/div[4]/div/div[3]/button[2]')
@@ -109,7 +114,7 @@ def cancel(id):
 
 def record(id): #default to show the lastest, max of n is 15
     if __log(id) == []:
-        return 'PermissionError'
+        return ['PermissionError']
     lib.go_to('https://lend.nknu.edu.tw/semac/service/history')
     s = ''
     while(lib.get_element_attribute('xpath://*[@id="history_vue"]/div/div/div[1]/div[3]/div/button[2]','disable') != ''):

@@ -1,5 +1,7 @@
+from concurrent.futures import thread
 import os
 from PIL import Image
+from cv2 import threshold
 import pytesseract
 import torch
 from dataset import Synth90kDataset
@@ -10,12 +12,15 @@ from ctc_decoder import ctc_decode
 from PIL import Image
 from config import train_config as config
 
-def captcha1():
+def captcha1(x=1):
 	path = os.path.dirname(os.path.realpath(__file__)) + r'\captcha.png'
 	pytesseract.pytesseract.tesseract_cmd = os.path.dirname(os.path.realpath(__file__)) + r'\Tesseract-OCR\tesseract.exe'
 	img=Image.open(path)
 	imggray=img.convert('L')
-	threshold=170
+	if x ==1:
+		threshold=170
+	elif x ==2:
+		threshold = 140
 	pixdata=imggray.load()
 	width,height=imggray.size
 	for y in range(height):
