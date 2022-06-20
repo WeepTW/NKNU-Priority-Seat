@@ -99,11 +99,11 @@ def handle_message_list(event):
          )
         line_bot_api.reply_message(event.reply_token, confirm_template_message)
     if re.match('確定取消',message):
-        reserve_text = cancel(line_bot_api.get_profile('<user_id>'))
+        reserve_text = '幫你取消囉~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
 
     if re.match('確認預約情形',message):
-        reserve_text = record(line_bot_api.get_profile('<user_id>'))
+        reserve_text = '開發中 請稍後'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
         
         
@@ -191,37 +191,7 @@ def handle_message_list(event):
     if re.match('大後天晚上',message):
         reserve_text = '幫你處理囉~'
         line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    
-    #學生id匯入
-    if line_bot_api.get_profile('<user_id>') == 'Ub7e9f322724c6b15cab6fc57630e5d8c':
-        stu_id = '410831143'
-        token.append(stu_id)
-        return token
-
-    #token給凡葦        包含:學號 預約空間 預約時間
-
-    #if success:
-    #    reserve_text = '已順利預約囉'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    #if TokenError:
-    #    reserve_text = '好像出了點狀況 請再試一次'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    #if DaysError:
-    #    reserve_text = '好像出了點狀況 請再試一次'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    #if RentTimeerror_Chaos:
-    #    reserve_text = '好像出了點狀況 請再試一次'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    #if RentTimeerror_Overtime:
-    #    reserve_text = '好像出了點狀況 請再試一次'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    #if TimeException:
-    #    reserve_text = '好像出了點狀況 請再試一次'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    #if FullHouseError:
-    #    reserve_text = '好像出了點狀況 請再試一次'
-    #    line_bot_api.reply_message(event.reply_token,TextSendMessage(reserve_text))
-    
+ 
 
 import os
 if __name__ == "__main__":
