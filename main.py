@@ -46,8 +46,8 @@ while(not exit):
         elif int(service) == 4: webbrowser.open(log(id)[3]); break
         else: print('請重新輸入一次！')
     elif len(s) == 2 and int(s[0]) in list(tokens.keys()):
-        if s[1] == '現在': print(reservation(id,tokens[[s[0]]]))
-        for day in list(days.keys()):
+        if s[1] == '現在': print(reservation(id,tokens[int(s[0])]))
+        for day in days.keys():
             for time in list(times.keys()):
                 if s[1] == day + time:
                     print(reservation(id,tokens[int(s[0])],days=days[day],hour= times[time][0],min=times[time][1]))
