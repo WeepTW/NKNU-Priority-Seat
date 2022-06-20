@@ -16,7 +16,7 @@ line_bot_api = LineBotApi('uxVsnPZdc7sMpdkSpB2fUfM2BIMvHAt2qieS58JFnkN7Tcm6vAtB7
 # 必須放上自己的Channel Secret
 handler = WebhookHandler('93df464b067cee15e60a3f1759471f90')
 
-line_bot_api.push_message('Ub7e9f322724c6b15cab6fc57630e5d8c', TextSendMessage(text='check'))
+line_bot_api.push_message('Ub7e9f322724c6b15cab6fc57630e5d8c', TextSendMessage(text='請回傳「開始」進行服務~'))
 #line_bot_api.push_message(TextSendMessage(text='請回傳「開始」進行服務~'))#正式來
 
 @app.route("/callback", methods=['POST'])
