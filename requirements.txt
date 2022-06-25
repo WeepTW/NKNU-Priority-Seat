@@ -8,5 +8,6 @@ rpaframework
 glob2
 tqdm
 pytesseract
-tqdm
-datetime
+PIL
+scripy
+pytorch

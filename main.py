@@ -1,9 +1,7 @@
-import os
 import sys
 sys.path.append(r'.\run')
 from run.view import cancel,record,reservation,log
 import time
-from numpy import mean
 import webbrowser
 '''
 cancel(id) -> None 

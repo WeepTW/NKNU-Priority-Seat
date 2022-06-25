@@ -1,42 +1,37 @@
-# README for 
-2022NKNU MATH special subject(RPA framework)
-單一登入圖書館空間自動借用，透過LINE Bot，遠端設定借用方式跟需求
+# NKNU-Prioity-Seat
+
+2022NKNU MATH special subject(RPA)
+Automatically reserve the library rooms of National Kaohsiung Normal University.
+Introduce video: https://www.youtube.com/watch?v=UYg32Yh_MQM
 
 ## Development guide
 
 Check you have download `python` & `pip` then setting the path successfully, or the program will run not thing.
+If you are using `LINE`, environmental setup will be down via requirements.txt automatically.
+If you are using `PC`, check out you had run `setup.exe` in the begining,
+    or you have to `decompress the file and using pyset_backup.cmd` first.
+    Then you could lanuch `NKNU-Priority-Seat.exe`
+Check you have add your information in `Info.xlsx`.
 
-### Suggested directory structure
+###### Then begining!
 
-The directory structure given by the template:
+### directory structure
+
 
 ```
-NKNU-Priority-Seat.cmd
-├── Line Bot
-│   └── ...
-├── main.py
-│   └── 
-├── 圖像破解.py
-
-├── def classroom(data,time)
-│
-└── def liber(data,time)
+NKNU-Priority-Seat
+├── app.py (for Line Bot)
+├── main.exe (for PC)
+├── run
+    └── view.py
+    └── mod.py
+    └── ...(deep learning with tesseract and pytorch) 
 ```
 
-where
-
-- `devdata`: A place for all data/material related to development, e.g., test data. Do not put any sensitive data here!
-- `keywords`: Robot Framework keyword files.
-- `libraries`: Python library code.
-- `variables`: Define your robot variables in a centralized place. Do not put any sensitive data here!
-- `conda.yaml`: Environment configuration file.
-- `robot.yaml`: Robot configuration file.
-- `tasks.robot`: Robot Framework task suite - high-level process definition.
-
-### Configuration
-
-
-
-### Additional documentation
+where all the api were located in view.py, which is 
+    reservation(id, token, days=0, hour=now(), min=now()) -> str: rentTime | error messenage
+    cancel(id) -> str: number of cancelation
+    record(id) -> str: records of reservations
+    log(id) -> dict:[user['account'],user['reservation'],user['friends'],link]
 
 

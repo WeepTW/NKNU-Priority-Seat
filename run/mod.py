@@ -1,7 +1,6 @@
 from concurrent.futures import thread
 import os
 from PIL import Image
-from cv2 import threshold
 import pytesseract
 import torch
 from dataset import Synth90kDataset

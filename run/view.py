@@ -151,7 +151,7 @@ def reservation(id,token,days = 0,hour = datetime.datetime.now().hour, min = dat
     #room ordering
     startblock = __countblock(hour,min)
     xpath = 'xpath://*[@id="history_vue"]/div/div/table/tbody/tr[1]/td[4]'
-    if token in [5,6,7,8] and __summit(token-4,0,startblock,titular=user[2][0:2]): lib.get_text(xpath) #燕-小型團體討論室(2A:5 2B:6)、欣賞室(2A:7 2B:8)
+    if token in [5,6,7,8] and __summit(token-4,0,startblock,titular=user[2][0:2]): return lib.get_text(xpath) #燕-小型團體討論室(2A:5 2B:6)、欣賞室(2A:7 2B:8)
     elif token == 19: #燕-研究小間(14)
         for page in range(3):
             for col in range( 4 if page == 0 else 5):
