@@ -51,6 +51,5 @@ while(not exit):
             for time in list(times.keys()):
                 if s[1] == day + time:
                     print(reservation(id,tokens[int(s[0])],days=days[day],hour= times[time][0],min=times[time][1]))
-                    continue
-        print('請重新輸入一次')
+                    break
     else: print('請重新輸入一次')
