@@ -27,7 +27,7 @@ NKNU-Priority-Seat
 ```
 
 where all the api were located in view.py, which is 
-    reservation(id, token, days=0, hour=now(), min=now()) -> str: rentTime | error messenage  
-    cancel(id) -> str: number of cancelation  
-    record(id) -> str: records of reservations  
-    log(id) -> dict:[user['account'],user['reservation'],user['friends'],link]  
+*    reservation(id, token, days=0, hour=now(), min=now()) -> str: rentTime | error messenage  
+*    cancel(id) -> str: number of cancelation  
+*    record(id) -> str: records of reservations  
+*    log(id) -> dict:[user['account'],user['reservation'],user['friends'],link]  
