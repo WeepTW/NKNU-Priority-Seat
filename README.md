@@ -13,9 +13,9 @@ Check you have download `python` & `pip` then setting the path successfully, or 
 * If you are using **PC**, check out you had run `setup.exe` in the begining,  
 *    or you have to `decompress the file and using pyset_backup.cmd` first, then lanuching `NKNU-Priority-Seat.exe`  
 Check you have add your information in `Info.xlsx`.  
-###### Then begining!
+##### Then begining!
 
-### directory structure
+### Directory structure
 ```
 NKNU-Priority-Seat
 ├── app.py (for Line Bot)
