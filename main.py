@@ -2,7 +2,8 @@ import sys
 sys.path.append(r'.\run')
 from run.view import cancel,record,reservation,log
 import time
-import webbrowser
+from webbrowser import open as web
+from PIL.Image import open as image
 '''
 cancel(id) -> None 
     取消所有借用
@@ -32,7 +33,7 @@ while(not exit):
     service = input('Command:')
     s = service.split()
     if service == '開始': print('選單功能 1.我要預約 2.取消預約 3.確認預約的情形 4.我自己來！\n請選擇服務項目')
-    elif service == '圖片': print('圖片在Line Bot 0.0')
+    elif service == '圖片': image('借用辦法.jpg', mode='r').show(); 
     elif service == 'exit': break
     elif service == '' or not s[0].isdigit(): print('請重新輸入')
     elif len(s) == 1 and int(s[0]) in range(1,5):
@@ -41,7 +42,7 @@ while(not exit):
             print('請輸入「代號(空格)預約時間」開始預約，預約時間辦法請參考圖片-打上「圖片」')
         elif int(service) == 2: print(cancel(id))
         elif int(service) == 3: print(record(id))
-        elif int(service) == 4: webbrowser.open(log(id)[3]); break
+        elif int(service) == 4: web(log(id)[3]); break
         else: print('請重新輸入一次！')
     elif len(s) == 2 and int(s[0]) in list(tokens.keys()):
         if s[1] == '現在': print(reservation(id,tokens[int(s[0])]))
